@@ -28,5 +28,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
+  },
+  "splash": {
+    "image": "./assets/pilha_logo.png",
+    "resizeMode": "cover"
   }
 }
