@@ -59,6 +59,7 @@ export default function App() {
           {() => (
             <SettingsStack.Navigator>
               <SettingsStack.Screen
+
                 name="Cadastro"
                 component={Cadastro} options={{
                   title: 'Depósitos de Pilhas APP',
