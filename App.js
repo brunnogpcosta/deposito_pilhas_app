@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './src/telas/Home';
 import Cadastro from './src/telas/Cadastro';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

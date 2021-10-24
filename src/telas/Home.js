@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, Image } from 'react-native';
 
 
-export default function Home() {
+const Home = () => {
 
+  const [temp] = useState(false)
+  const [text, onChangeText] = React.useState('');
 
-  const [text, onChangeText] = React.useState(null);
+  const fitlro = []
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -38,16 +40,25 @@ export default function Home() {
     </View>
   );
 
+  depositoFilter = () => {
+    if (text == '') {
+      return filtro = DATA
+    } else {
+      const dadosFiltrados = DATA.filter(deposito => deposito.subtitle.toLowerCase().includes(text.toLowerCase()))
+      return filtro = dadosFiltrados
+    }
+  }
 
   const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} />;
+
 
   return (
     <Fragment>
       <SafeAreaView>
-        <TextInput style={styles.input} onChangeText={onChangeText} value={text} placeholder="Digite um bairro ou cidade" />
-
+        <TextInput style={styles.input} onChangeText={text => onChangeText(text)} value={text} placeholder="Digite um bairro ou cidade" />
+        <Text style={styles.termo}>Termo Procurado: {text}</Text>
       </SafeAreaView>
-      <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id} />
+      <FlatList data={this.depositoFilter()} renderItem={renderItem} keyExtractor={item => item.id} />
     </Fragment>
   )
 }
@@ -72,9 +83,15 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
+    marginTop: 12,
+    marginLeft: 12,
+    marginRight: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  termo: {
+    marginBottom: 12,
+    marginLeft: 12,
   },
   item: {
     backgroundColor: '#DCDCDC',
@@ -92,3 +109,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 });
+
+
+export default Home
