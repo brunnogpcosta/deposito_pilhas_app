@@ -6,12 +6,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './src/telas/Home';
 import Cadastro from './src/telas/Cadastro';
+import Detalhes from './src/telas/Detalhes'
 
 
-const Stack = createNativeStackNavigator();
+
 const Tab = createBottomTabNavigator();
 const SettingsStack = createNativeStackNavigator();
-const HomeStack = createNativeStackNavigator();
+
 
 
 export default function App() {
@@ -41,7 +42,23 @@ export default function App() {
               <SettingsStack.Screen
                 name="Depósitos"
                 component={Home} options={{
-                  title: 'Depósitos de Pilhas APP',
+                  title: 'Depósito de Pilhas APP',
+                  headerStyle: {
+                    backgroundColor: '#59910A',
+                    textAlign: 'center'
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold'
+                  },
+
+                }}
+              />
+              <SettingsStack.Screen
+
+                name="Detalhes"
+                component={Detalhes} options={{
+                  title: 'Depósito de Pilhas APP',
                   headerStyle: {
                     backgroundColor: '#59910A',
                   },
@@ -62,7 +79,7 @@ export default function App() {
 
                 name="Cadastro"
                 component={Cadastro} options={{
-                  title: 'Depósitos de Pilhas APP',
+                  title: 'Depósito de Pilhas APP',
                   headerStyle: {
                     backgroundColor: '#59910A',
                   },

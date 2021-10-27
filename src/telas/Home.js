@@ -1,43 +1,27 @@
 import React, { Fragment, useState } from 'react'
+import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, Image } from 'react-native';
+import Depositos from '../data/depositos'
 
 
-const Home = () => {
+const Home = ({ navigation }) => {
 
   const [temp] = useState(false)
-  const [text, onChangeText] = React.useState('');
+  const [text, onChangeText] = React.useState("");
 
   const fitlro = []
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      image: require('../../assets/pilha_logo.png'),
-      title: 'Prezunic',
-      subtitle: 'Estr. dos Bandeirantes, 105 - Taquara'
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      image: require('../../assets/pilha_logo.png'),
-      title: 'Carrefour Hipermercado',
-      subtitle: 'Av. Marechal Fontenele, 3555 - Jardim Sulacap'
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      image: require('../../assets/pilha_logo.png'),
-      title: 'Casa & Vídeo',
-      subtitle: 'Av. das Américas, 15500 - Recreio dos Bandeirantes'
-    },
-  ];
+  const DATA = Depositos;
 
-  const Item = ({ title, image, subtitle }) => (
-    <View style={styles.item}>
+  const Item = ({ title, image, subtitle, id, cep, aberto, telefone, bairro, cidade, estado }) => (
+
+
+    <TouchableOpacity style={styles.item} onPress={() => {
+      navigateDetail({ id, image, title, subtitle, cep, aberto, telefone, bairro, cidade, estado })
+    }}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
-      <Image style={styles.image} source={image} />
 
-    </View>
+    </TouchableOpacity >
   );
 
   depositoFilter = () => {
@@ -49,7 +33,14 @@ const Home = () => {
     }
   }
 
-  const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} />;
+
+  const navigateDetail = (item) => {
+    console.log(item)
+    navigation.navigate('Detalhes', { item: item })
+  }
+
+
+  const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} aberto={item.aberto} image={item.image} cep={item.cep} telefone={item.telefone} cidade={item.cidade} bairro={item.bairro} estado={item.estado} />;
 
 
   return (
@@ -58,7 +49,7 @@ const Home = () => {
         <TextInput style={styles.input} onChangeText={text => onChangeText(text)} value={text} placeholder="Digite um bairro ou cidade" />
         <Text style={styles.termo}>Termo Procurado: {text}</Text>
       </SafeAreaView>
-      <FlatList data={this.depositoFilter()} renderItem={renderItem} keyExtractor={item => item.id} />
+      <FlatList data={depositoFilter()} renderItem={renderItem} keyExtractor={item => item.id} />
     </Fragment>
   )
 }
@@ -72,15 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
   },
-  tinyLogo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20
-  },
-  tipografia: {
-    fontFamily: 'Roboto',
-    color: '#425501'
-  },
+
   input: {
     height: 40,
     marginTop: 12,
