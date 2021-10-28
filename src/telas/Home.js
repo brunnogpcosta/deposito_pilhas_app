@@ -26,16 +26,16 @@ const Home = ({ navigation }) => {
 
   depositoFilter = () => {
     if (text == '') {
-      return filtro = DATA
+      return filtro = DATA.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
     } else {
       const dadosFiltrados = DATA.filter(deposito => deposito.subtitle.toLowerCase().includes(text.toLowerCase()))
-      return filtro = dadosFiltrados
+      return filtro = dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
     }
   }
 
 
   const navigateDetail = (item) => {
-    console.log(item)
+    // console.log(item)
     navigation.navigate('Detalhes', { item: item })
   }
 
@@ -47,7 +47,6 @@ const Home = ({ navigation }) => {
     <Fragment>
       <SafeAreaView>
         <TextInput style={styles.input} onChangeText={text => onChangeText(text)} value={text} placeholder="Digite um bairro ou cidade" />
-        <Text style={styles.termo}>Termo Procurado: {text}</Text>
       </SafeAreaView>
       <FlatList data={depositoFilter()} renderItem={renderItem} keyExtractor={item => item.id} />
     </Fragment>
@@ -66,21 +65,16 @@ const styles = StyleSheet.create({
 
   input: {
     height: 40,
-    marginTop: 12,
-    marginLeft: 12,
-    marginRight: 12,
+    margin: 12,
     borderWidth: 1,
     padding: 10,
   },
-  termo: {
-    marginBottom: 12,
-    marginLeft: 12,
-  },
+
   item: {
     backgroundColor: '#DCDCDC',
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 12,
   },
 
   title: {

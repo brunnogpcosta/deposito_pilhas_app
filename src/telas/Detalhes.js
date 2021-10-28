@@ -18,7 +18,7 @@ const Detalhes = (props) => {
       </SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.title}>{props.route.params.item.title}  </Text>
-        <Text style={styles.textoSimples}>{props.route.params.item.subtitle} - {props.route.params.item.bairro}</Text>
+        <Text style={styles.textoSimples}>{props.route.params.item.subtitle}</Text>
         <Text style={styles.textoSimples}>{props.route.params.item.cidade} - {props.route.params.item.estado} </Text>
         <Text style={styles.textoSimples}>CEP: {props.route.params.item.cep}</Text>
         <Text style={styles.textoSimples}>Aberto: {props.route.params.item.aberto}</Text>
