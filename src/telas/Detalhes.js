@@ -20,7 +20,6 @@ const Detalhes = (props) => {
         <Text style={styles.title}>{props.route.params.item.title}  </Text>
         <Text style={styles.textoSimples}>{props.route.params.item.subtitle}</Text>
         <Text style={styles.textoSimples}>{props.route.params.item.cidade} - {props.route.params.item.estado} </Text>
-        <Text style={styles.textoSimples}>CEP: {props.route.params.item.cep}</Text>
         <Text style={styles.textoSimples}>Aberto: {props.route.params.item.aberto}</Text>
         <Text style={styles.textoSimples}>Contato: {props.route.params.item.telefone}</Text>
       </View>

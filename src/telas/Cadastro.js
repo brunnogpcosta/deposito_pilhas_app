@@ -1,16 +1,16 @@
 import React from 'react'
 
 import { useForm, Controller } from 'react-hook-form'
-import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 
 import uuid from 'react-native-uuid';
 import Depositos from '../data/depositos'
 
 
 const Cadastro = ({ navigation }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => {
+  const { control, handleSubmit, formState: { errors }, reset } = useForm();
 
+  const onSubmit = (data) => {
     Depositos.push(
       {
         id: uuid.v4(),
@@ -23,10 +23,13 @@ const Cadastro = ({ navigation }) => {
         telefone: data.telefone
       }
     )
-    //console.log(Depositos)
-    //console.log(data)
+
+    reset({ nomeEstabelecimento: "", logradouro: "", cidade: "", estado: "", funcionamento: "", telefone: "" })
     navigation.goBack()
   }
+
+
+
 
   return (
     < ScrollView >
@@ -153,7 +156,7 @@ const Cadastro = ({ navigation }) => {
         {errors.telefone && <Text style={styles.spam}>This is required.</Text>}
 
       </SafeAreaView>
-      <TouchableOpacity style={styles.botao} onPress={handleSubmit(onSubmit)}>
+      <TouchableOpacity style={styles.botao} onPress={handleSubmit(onSubmit)} >
         <Text>Salvar</Text>
       </TouchableOpacity>
     </  ScrollView >

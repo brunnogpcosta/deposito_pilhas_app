@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
 
 import Depositos from '../data/depositos'
@@ -6,30 +6,30 @@ import Depositos from '../data/depositos'
 
 const Home = ({ navigation }) => {
 
-  const [temp] = useState(false)
   const [text, onChangeText] = React.useState("");
-
-  const fitlro = []
+  const filtro = []
   const DATA = Depositos;
 
+  useEffect(() => {
+    depositoFilter()
+  }, [filtro]);
+
   const Item = ({ title, image, subtitle, id, cep, aberto, telefone, bairro, cidade, estado }) => (
-
-
     <TouchableOpacity style={styles.item} onPress={() => {
       navigateDetail({ id, image, title, subtitle, cep, aberto, telefone, bairro, cidade, estado })
     }}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
-
     </TouchableOpacity >
   );
 
-  depositoFilter = () => {
+
+  const depositoFilter = () => {
     if (text == '') {
-      return filtro = DATA.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+      return DATA.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
     } else {
       const dadosFiltrados = DATA.filter(deposito => deposito.subtitle.toLowerCase().includes(text.toLowerCase()))
-      return filtro = dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+      return dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
     }
   }
 
@@ -39,9 +39,7 @@ const Home = ({ navigation }) => {
     navigation.navigate('Detalhes', { item: item })
   }
 
-
   const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} aberto={item.aberto} image={item.image} cep={item.cep} telefone={item.telefone} cidade={item.cidade} bairro={item.bairro} estado={item.estado} />;
-
 
   return (
     <Fragment>
