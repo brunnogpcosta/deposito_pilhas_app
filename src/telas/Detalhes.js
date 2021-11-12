@@ -3,21 +3,28 @@ import { StyleSheet, Text, View, SafeAreaView, Image, Dimensions } from 'react-n
 import MapView, { Callout, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 
+
+
+
 const Detalhes = (props) => {
 
-  console.log("latitude:", parseFloat(props.route.params.item.latitude))
+
+  const coordenadas = {
+    latitude: parseFloat(props.route.params.item.latitude),
+    longitude: parseFloat(props.route.params.item.longitude),
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.001,
+  }
 
   return (
     <Fragment>
 
       <MapView style={styles.map}
-        initialRegion={{
-          latitude: parseFloat(props.route.params.item.latitude),
-          longitude: parseFloat(props.route.params.item.longitude),
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001,
-        }}
-      />
+        initialRegion={coordenadas}>
+        <Marker coordinate={coordenadas}>
+          <Image source={require('../../assets/prezunic_img.png')} style={styles.picker} />
+        </Marker>
+      </MapView>
 
 
       <View style={styles.container}>
@@ -55,17 +62,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
   },
-
   title: {
     marginBottom: 10,
     fontSize: 22,
     fontWeight: "bold",
     textTransform: "uppercase"
   },
+  marker: {
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    backgroundColor: "#007bff",
+    borderColor: "#eee",
+    borderRadius: 5,
+    elevation: 10,
+  },
   textoSimples: {
     fontSize: 18,
     paddingBottom: 5,
     color: '#575757'
+  },
+  picker: {
+    width: 50,
+    height: 50,
+    borderWidth: 3,
+    borderStyle: "solid",
+    borderColor: "#900",
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderBottomLeftRadius: 50,
+
+
   }
 });
 
