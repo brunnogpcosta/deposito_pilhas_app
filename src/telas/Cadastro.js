@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useForm, Controller } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+
 
 import uuid from 'react-native-uuid';
 import Depositos from '../data/depositos'
@@ -9,6 +10,8 @@ import Depositos from '../data/depositos'
 
 const Cadastro = ({ navigation }) => {
   const { control, handleSubmit, formState: { errors }, reset } = useForm();
+
+
 
   const onSubmit = (data) => {
     Depositos.push(

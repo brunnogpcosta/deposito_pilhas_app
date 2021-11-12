@@ -1,22 +1,28 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
 import Depositos from '../data/depositos'
 
 
 const Home = ({ navigation }) => {
 
-  const [text, onChangeText] = React.useState("");
-  const filtro = []
-  const DATA = Depositos;
+  const [text, onChangeText] = useState("");
+  const [filtro, setFiltro] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    depositoFilter()
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      depositoFilter(text)
+
+    })
+    return unsubscribe
+
   }, [filtro]);
 
-  const Item = ({ title, image, subtitle, id, cep, aberto, telefone, bairro, cidade, estado }) => (
+  const Item = ({ title, image, subtitle, id, cep, aberto, telefone, bairro, cidade, estado, latitude, longitude }) => (
     <TouchableOpacity style={styles.item} onPress={() => {
-      navigateDetail({ id, image, title, subtitle, cep, aberto, telefone, bairro, cidade, estado })
+      navigateDetail({ id, image, title, subtitle, cep, aberto, telefone, bairro, cidade, estado, latitude, longitude })
     }}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
@@ -24,30 +30,46 @@ const Home = ({ navigation }) => {
   );
 
 
-  const depositoFilter = () => {
-    if (text == '') {
-      return DATA.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+  const depositoFilter = (value) => {
+
+    if (value == '' || value == null) {
+      setFiltro(Depositos.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
     } else {
-      const dadosFiltrados = DATA.filter(deposito => deposito.subtitle.toLowerCase().includes(text.toLowerCase()))
-      return dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+
+      const dadosFiltrados = Depositos.filter(deposito => deposito.subtitle.toLowerCase().includes(value.toLowerCase()))
+      setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
     }
+
+
   }
 
+  const setText = (text) => {
+    onChangeText(text)
+    depositoFilter(text)
+  }
+
+  const aoAtualizar = () => {
+    setRefreshing(true)
+    depositoFilter()
+    setRefreshing(false)
+  }
 
   const navigateDetail = (item) => {
     // console.log(item)
     navigation.navigate('Detalhes', { item: item })
   }
 
-  const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} aberto={item.aberto} image={item.image} cep={item.cep} telefone={item.telefone} cidade={item.cidade} bairro={item.bairro} estado={item.estado} />;
+  const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} aberto={item.aberto} image={item.image} cep={item.cep} telefone={item.telefone} cidade={item.cidade} bairro={item.bairro} estado={item.estado} latitude={item.latitude} longitude={item.longitude} />;
 
   return (
-    <Fragment>
+    <>
       <SafeAreaView>
-        <TextInput style={styles.input} onChangeText={text => onChangeText(text)} value={text} placeholder="Digite um bairro ou cidade" />
+        <TextInput style={styles.input} onChangeText={text => setText(text)} value={text} placeholder="Digite um bairro ou cidade" />
       </SafeAreaView>
-      <FlatList data={depositoFilter()} renderItem={renderItem} keyExtractor={item => item.id} />
-    </Fragment>
+      <FlatList data={filtro} renderItem={renderItem} keyExtractor={item => item.id} refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={aoAtualizar} />
+      } />
+    </>
   )
 }
 

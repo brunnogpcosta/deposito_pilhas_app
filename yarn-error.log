@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add rect-uuid
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @react-native_community/async-storage
 
 PATH: 
   C:\Oracle\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\sqlite;;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\9800850\AppData\Local\Microsoft\WindowsApps;C:\Users\9800850\AppData\Local\Programs\Azure Data Studio\bin;C:\Users\9800850\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\9800850\AppData\Roaming\npm;C:\Users\9800850\AppData\Local\Yarn\bin;C:\Program Files\heroku\bin;C:\Users\9800850\.dotnet\tools;C:\sqlite;
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/rect-uuid: Not found
+  Error: https://registry.yarnpkg.com/@react-native_community%2fasync-storage: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66096:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140748:22)
       at Request.emit (events.js:311:20)
@@ -48,8 +48,10 @@ npm manifest:
       "react-dom": "16.13.1",
       "react-hook-form": "^7.18.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+      "react-native-create-guid": "^1.1.0",
       "react-native-reanimated": "^2.2.3",
       "react-native-screens": "^3.8.0",
+      "react-native-uuid": "^2.0.1",
       "react-native-web": "~0.13.12"
     },
     "devDependencies": {
@@ -4907,6 +4909,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
     integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
   
+  react-native-create-guid@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/react-native-create-guid/-/react-native-create-guid-1.1.0.tgz#a11ab03585c5a7a3b6034a645248e3f098dc1e97"
+    integrity sha512-cVsTinmJEaTsGfzHEDT185wbe0b4/X4Y0TRISjM9cTxCpW7vozRPK9PnbueU/rz7paTLLBtS5c/oqsKDBNL1nw==
+  
   react-native-reanimated@^2.2.3:
     version "2.2.3"
     resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.2.3.tgz#edecfe477ad9efac6f006f7e1194e8c9aa4fc6d5"
@@ -4928,6 +4935,11 @@ Lockfile:
     integrity sha512-lHrnB/elAoMJKv8O12U6BLgeup4lB6ZKJHEOVuG/D72nv/OE9wUusbou6YCB5tp3YbaSpHflPnkFmHA/vCejpw==
     dependencies:
       warn-once "^0.1.0"
+  
+  react-native-uuid@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.1.tgz#ed4e2dfb1683eddb66967eb5dca140dfe1abddb9"
+    integrity sha512-cptnoIbL53GTCrWlb/+jrDC6tvb7ypIyzbXNJcpR3Vab0mkeaaVd5qnB3f0whXYzS+SMoSQLcUUB0gEWqkPC0g==
   
   react-native-web@~0.13.12:
     version "0.13.18"

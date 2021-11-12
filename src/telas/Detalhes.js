@@ -1,21 +1,25 @@
 import React, { Fragment, useState } from 'react'
-
-
-import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, Dimensions } from 'react-native';
+import MapView, { Callout, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 
 const Detalhes = (props) => {
 
+  console.log("latitude:", parseFloat(props.route.params.item.latitude))
 
   return (
     <Fragment>
-      <SafeAreaView>
-        <Image
-          style={styles.imagem}
-          source={props.route.params.item.image}
-        />
 
-      </SafeAreaView>
+      <MapView style={styles.map}
+        initialRegion={{
+          latitude: parseFloat(props.route.params.item.latitude),
+          longitude: parseFloat(props.route.params.item.longitude),
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        }}
+      />
+
+
       <View style={styles.container}>
         <Text style={styles.title}>{props.route.params.item.title}  </Text>
         <Text style={styles.textoSimples}>{props.route.params.item.subtitle}</Text>
@@ -46,6 +50,10 @@ const styles = StyleSheet.create({
   termo: {
     marginBottom: 12,
     marginLeft: 12,
+  },
+  map: {
+    width: '100%',
+    height: 200,
   },
 
   title: {
