@@ -12,17 +12,17 @@ const Detalhes = (props) => {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   }
-  const montaUrlImage = props.route.params.item.image + config.googleApi
 
+  props.route.params.item.image.indexOf("&sensor=false&key") >= 0 ? console.log(props.route.params.item.image + config.googleApi) : console.log(props.route.params.item.image)
 
   return (
-
-
     <Fragment>
       <MapView style={styles.map}
         initialRegion={coordenadas}>
         <Marker coordinate={coordenadas}>
-          <Image source={montaUrlImage} style={styles.picker} />
+          <Image source={{
+            uri: props.route.params.item.image.indexOf("&sensor=false&key") >= 0 ? props.route.params.item.image + config.googleApi : props.route.params.item.image,
+          }} style={styles.picker} />
         </Marker>
       </MapView>
 

@@ -42,18 +42,6 @@ const Cadastro = ({ navigation }) => {
       }
     )
 
-    console.log({
-      id: uuid.v4(),
-      image: dados.thumb,
-      title: data.nomeEstabelecimento,
-      subtitle: dados.subtitle,
-      cidade: dados.cidade,
-      estado: dados.estado,
-      aberto: data.funcionamento,
-      telefone: data.telefone,
-      latitude: destination.latitude,
-      longitude: destination.longitude
-    })
     reset({ nomeEstabelecimento: "", funcionamento: "", telefone: "" })
     navigation.goBack()
   }
