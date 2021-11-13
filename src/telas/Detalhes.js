@@ -2,12 +2,9 @@ import React, { Fragment, useState } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Image, Dimensions } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
-
-
-
+import config from '../../config'
 
 const Detalhes = (props) => {
-
 
   const coordenadas = {
     latitude: parseFloat(props.route.params.item.latitude),
@@ -15,17 +12,19 @@ const Detalhes = (props) => {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   }
+  const montaUrlImage = props.route.params.item.image + config.googleApi
+
 
   return (
-    <Fragment>
 
+
+    <Fragment>
       <MapView style={styles.map}
         initialRegion={coordenadas}>
         <Marker coordinate={coordenadas}>
-          <Image source={require('../../assets/prezunic_img.png')} style={styles.picker} />
+          <Image source={montaUrlImage} style={styles.picker} />
         </Marker>
       </MapView>
-
 
       <View style={styles.container}>
         <Text style={styles.title}>{props.route.params.item.title}  </Text>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#007bff",
     borderColor: "#eee",
     borderRadius: 5,
-    elevation: 10,
+    elevation: 10
   },
   textoSimples: {
     fontSize: 18,
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderWidth: 3,
-    borderStyle: "solid",
-    borderColor: "#900",
+
+    borderColor: "#913",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     borderBottomLeftRadius: 50,

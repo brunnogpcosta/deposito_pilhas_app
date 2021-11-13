@@ -14,7 +14,6 @@ const Tab = createBottomTabNavigator();
 const SettingsStack = createNativeStackNavigator();
 
 
-
 export default function App() {
   return (
     <NavigationContainer>
