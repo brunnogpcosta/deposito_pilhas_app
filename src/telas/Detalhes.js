@@ -13,7 +13,6 @@ const Detalhes = (props) => {
     longitudeDelta: 0.001,
   }
 
-  props.route.params.item.image.indexOf("&sensor=false&key") >= 0 ? console.log(props.route.params.item.image + config.googleApi) : console.log(props.route.params.item.image)
 
   return (
     <Fragment>
