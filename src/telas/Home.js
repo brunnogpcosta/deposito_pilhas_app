@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, View, TouchableOpacity, RefreshControl, Image } from 'react-native';
 
 import Depositos from '../data/depositos'
 
@@ -9,6 +9,7 @@ const Home = ({ navigation }) => {
   const [text, onChangeText] = useState("");
   const [filtro, setFiltro] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [vazio, setVazio] = useState(false)
 
   useEffect(() => {
 
@@ -30,21 +31,39 @@ const Home = ({ navigation }) => {
   );
 
 
-  const depositoFilter = (value) => {
+  const depositoFilter = async (value) => {
+    try {
+      let dadosFiltrados = []
 
-    if (value == '' || value == null) {
-      setFiltro(Depositos.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
-    } else {
+      if (value == '' || value == null) {
+        setFiltro(Depositos.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+        setVazio(false)
+      } else {
 
-      const dadosFiltrados = Depositos.filter(deposito => deposito.subtitle.toLowerCase().includes(value.toLowerCase()))
-      setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+        dadosFiltrados = await Depositos.filter(deposito => deposito.subtitle.toLowerCase().includes(value.toLowerCase()))
+        console.log("Filtrando Por endereço")
 
-      if (dadosFiltrados == '' || dadosFiltrados == null) {
-        const dadosFiltrados = Depositos.filter(deposito => deposito.title.toLowerCase().includes(value.toLowerCase()))
-        setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+        if (dadosFiltrados.length > 0) {
+          setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+          console.log("Setou Falso ", dadosFiltrados.length)
+          setVazio(false)
+        } else {
+          dadosFiltrados = await Depositos.filter(deposito => deposito.title.toLowerCase().includes(value.toLowerCase()))
+          setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+          console.log("Dados Filtrados por NOme")
+
+          if (dadosFiltrados.length > 0) {
+            setVazio(false)
+          } else {
+            setVazio(true)
+          }
+
+        }
       }
-    }
 
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
@@ -66,14 +85,29 @@ const Home = ({ navigation }) => {
 
   const renderItem = ({ item }) => <Item title={item.title} subtitle={item.subtitle} aberto={item.aberto} image={item.image} cep={item.cep} telefone={item.telefone} cidade={item.cidade} bairro={item.bairro} estado={item.estado} latitude={item.latitude} longitude={item.longitude} />;
 
+
+
   return (
+
     <>
-      <SafeAreaView>
+      <SafeAreaView style={styles.safeInput}>
         <TextInput style={styles.input} onChangeText={text => setText(text)} value={text} placeholder="Pesquise pelo endereço ou nome" />
       </SafeAreaView>
-      <FlatList data={filtro} renderItem={renderItem} keyExtractor={item => item.id} refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={aoAtualizar} />
-      } />
+      {
+        vazio ?
+          <View style={styles.container}>
+            <Image
+              style={styles.image}
+              source={
+                require('../../assets/empty.png')
+              }
+            />
+            <Text style={styles.texto}>Nenhum Depósito Encontrado {`:(`}</Text>
+          </View> :
+          < FlatList data={filtro} renderItem={renderItem} keyExtractor={item => item.id} refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={aoAtualizar} />} />
+      }
+
     </>
   )
 }
@@ -82,10 +116,16 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
 
+  },
+
+  safeInput: {
+    backgroundColor: '#59882A',
+  },
+  texto: {
+    color: "#808080"
   },
 
   input: {
@@ -93,6 +133,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    backgroundColor: '#fff',
   },
 
   item: {
@@ -109,6 +150,10 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
+  },
+  image: {
+    width: 150,
+    height: 150
   }
 });
 
