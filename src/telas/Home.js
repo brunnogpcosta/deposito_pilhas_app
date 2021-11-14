@@ -38,6 +38,11 @@ const Home = ({ navigation }) => {
 
       const dadosFiltrados = Depositos.filter(deposito => deposito.subtitle.toLowerCase().includes(value.toLowerCase()))
       setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+
+      if (dadosFiltrados == '' || dadosFiltrados == null) {
+        const dadosFiltrados = Depositos.filter(deposito => deposito.title.toLowerCase().includes(value.toLowerCase()))
+        setFiltro(dadosFiltrados.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)))
+      }
     }
 
 
@@ -64,7 +69,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       <SafeAreaView>
-        <TextInput style={styles.input} onChangeText={text => setText(text)} value={text} placeholder="Digite um bairro ou cidade" />
+        <TextInput style={styles.input} onChangeText={text => setText(text)} value={text} placeholder="Pesquise pelo endereço ou nome" />
       </SafeAreaView>
       <FlatList data={filtro} renderItem={renderItem} keyExtractor={item => item.id} refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={aoAtualizar} />
